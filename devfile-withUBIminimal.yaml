@@ -17,6 +17,10 @@ components:
         - '-c'
         - '${PLUGIN_REMOTE_ENDPOINT_EXECUTABLE}'
       endpoints:
+        - exposure: none
+          name: debug
+          protocol: tcp
+          targetPort: 5005
         - exposure: public
           name: openapi-barista
           path: /openapi/ui
@@ -50,6 +54,24 @@ components:
         - name: plugins
           path: /plugins
     name: tools
+  - container:
+      args:
+        - '-f'
+        - /dev/null
+      command:
+        - tail
+      env:
+        - name: CHE_DASHBOARD_URL
+          value: 'https://eclipse-che.devws1-bba6e428d9a6b7fd304f7b634190f27f-0000.eu-de.containers.appdomain.cloud'
+        - name: CHE_PLUGIN_REGISTRY_URL
+          value: 'https://eclipse-che.devws1-bba6e428d9a6b7fd304f7b634190f27f-0000.eu-de.containers.appdomain.cloud/plugin-registry/v3'
+        - name: CHE_PLUGIN_REGISTRY_INTERNAL_URL
+          value: 'http://plugin-registry.openshift-operators.svc:8080/v3'
+      image: registry.access.redhat.com/ubi8/ubi-minimal
+      memoryLimit: 64M
+      mountSources: true
+      sourceMapping: /projects
+    name: ubi-minimal
   - name: m2
     volume:
       size: 1G
@@ -70,3 +92,20 @@ commands:
       label: Package Native
       workingDir: '${PROJECT_SOURCE}/start/coffee-shop'
     id: dev-coffee
+  - exec:
+      commandLine: './mvnw compile quarkus:dev'
+      component: tools
+      group:
+        isDefault: true
+        kind: run
+      label: Start Development mode (Hot reload + debug)
+      workingDir: '${PROJECT_SOURCE}/getting-started'
+    id: start-dev
+  - exec:
+      commandLine: ./getting-started-1.0.0-SNAPSHOT-runner
+      component: ubi-minimal
+      group:
+        kind: run
+      label: Start Native
+      workingDir: '${PROJECT_SOURCE}/getting-started/target'
+    id: start-native
