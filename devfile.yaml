@@ -1,11 +1,10 @@
 schemaVersion: 2.1.0
 metadata:
-  name: tgau-quarkus
+  name: tgau-openliberty
 components:
   - attributes:
       app.kubernetes.io/name: tools
       che-theia.eclipse.org/vscode-extensions:
-        - 'https://github.com/redhat-developer/codeready-workspaces-vscode-extensions/releases/download/7.44-che-assets/vscode-quarkus-1.7.0-437.vsix'
         - 'https://github.com/redhat-developer/codeready-workspaces-vscode-extensions/releases/download/7.44-che-assets/java-0.82.0-369.vsix'
         - 'https://github.com/redhat-developer/codeready-workspaces-vscode-extensions/releases/download/7.44-che-assets/vscode-microprofile-0.1.1-48.vsix'
         - 'https://github.com/redhat-developer/codeready-workspaces-vscode-extensions/releases/download/7.44-che-assets/vscode-java-debug-0.26.0.vsix'
@@ -75,21 +74,21 @@ components:
       size: 1G
 commands:
   - exec:
-      commandLine: ./mvnw package
+      commandLine: ./mvnw liberty:run
       component: tools
       group:
         isDefault: true
         kind: build
-      workingDir: '${PROJECT_SOURCE}/getting-started'
-    id: package
+      workingDir: '${PROJECT_SOURCE}/start/barista'
+    id: run-barista
   - exec:
-      commandLine: ./mvnw package -Dnative -Dmaven.test.skip -Dquarkus.native.native-image-xmx=2G
+      commandLine: ./mvnw liberty:dev
       component: tools
       group:
         kind: build
       label: Package Native
-      workingDir: '${PROJECT_SOURCE}/getting-started'
-    id: package-native
+      workingDir: '${PROJECT_SOURCE}/start/coffee-shop'
+    id: dev-coffee
   - exec:
       commandLine: './mvnw compile quarkus:dev'
       component: tools
