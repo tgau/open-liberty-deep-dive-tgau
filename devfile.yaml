@@ -74,7 +74,7 @@ components:
       size: 1G
 commands:
   - exec:
-      commandLine: ./mvnw liberty:run
+      commandLine: mvn liberty:run
       component: tools
       group:
         isDefault: true
@@ -82,7 +82,7 @@ commands:
       workingDir: '${PROJECT_SOURCE}/start/barista'
     id: run-barista
   - exec:
-      commandLine: ./mvnw liberty:dev
+      commandLine: mvn liberty:dev
       component: tools
       group:
         kind: build
