@@ -32,12 +32,6 @@ components:
           value: /remote-endpoint/plugin-remote-endpoint
         - name: THEIA_PLUGINS
           value: 'local-dir:///plugins/sidecars/tools'
-        - name: CHE_DASHBOARD_URL
-          value: 'https://eclipse-che.devws1-bba6e428d9a6b7fd304f7b634190f27f-0000.eu-de.containers.appdomain.cloud'
-        - name: CHE_PLUGIN_REGISTRY_URL
-          value: 'https://eclipse-che.devws1-bba6e428d9a6b7fd304f7b634190f27f-0000.eu-de.containers.appdomain.cloud/plugin-registry/v3'
-        - name: CHE_PLUGIN_REGISTRY_INTERNAL_URL
-          value: 'http://plugin-registry.openshift-operators.svc:8080/v3'
       image: 'quay.io/devfile/universal-developer-image:ubi8-0e189d9'
       memoryLimit: 4G
       mountSources: true
