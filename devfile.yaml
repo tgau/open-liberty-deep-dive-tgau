@@ -1,6 +1,6 @@
 schemaVersion: 2.1.0
 metadata:
-  name: tgau-openliberty
+  name: openliberty-che
 components:
   - attributes:
       app.kubernetes.io/name: tools
