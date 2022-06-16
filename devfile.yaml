@@ -36,10 +36,6 @@ components:
           value: /remote-endpoint/plugin-remote-endpoint
         - name: THEIA_PLUGINS
           value: 'local-dir:///plugins/sidecars/tools'
-        - name: CHE_DASHBOARD_URL
-          value: 'https://eclipse-che.devws1-bba6e428d9a6b7fd304f7b634190f27f-0000.eu-de.containers.appdomain.cloud'
-        - name: CHE_PLUGIN_REGISTRY_URL
-          value: 'https://eclipse-che.devws1-bba6e428d9a6b7fd304f7b634190f27f-0000.eu-de.containers.appdomain.cloud/plugin-registry/v3'
         - name: CHE_PLUGIN_REGISTRY_INTERNAL_URL
           value: 'http://plugin-registry.openshift-operators.svc:8080/v3'
       image: 'quay.io/devfile/universal-developer-image:ubi8-0e189d9'
@@ -61,11 +57,6 @@ components:
       command:
         - tail
       env:
-        - name: CHE_DASHBOARD_URL
-          value: 'https://eclipse-che.devws1-bba6e428d9a6b7fd304f7b634190f27f-0000.eu-de.containers.appdomain.cloud'
-        - name: CHE_PLUGIN_REGISTRY_URL
-          value: 'https://eclipse-che.devws1-bba6e428d9a6b7fd304f7b634190f27f-0000.eu-de.containers.appdomain.cloud/plugin-registry/v3'
-        - name: CHE_PLUGIN_REGISTRY_INTERNAL_URL
           value: 'http://plugin-registry.openshift-operators.svc:8080/v3'
       image: registry.access.redhat.com/ubi8/ubi-minimal
       memoryLimit: 64M
@@ -101,11 +92,3 @@ commands:
       label: Start Development mode (Hot reload + debug)
       workingDir: '${PROJECT_SOURCE}/getting-started'
     id: start-dev
-  - exec:
-      commandLine: ./getting-started-1.0.0-SNAPSHOT-runner
-      component: ubi-minimal
-      group:
-        kind: run
-      label: Start Native
-      workingDir: '${PROJECT_SOURCE}/getting-started/target'
-    id: start-native
